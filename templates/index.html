@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chatroom</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen">
+        <div class="login-container">
+            <h1>Welcome to Chatroom</h1>
+            <p class="subtitle">Join or create a room to start chatting</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" 
+                           placeholder="Enter your username" required 
+                           maxlength="50" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label for="room">Room Name</label>
+                    <input type="text" id="room" name="room" 
+                           placeholder="Enter room name" required 
+                           maxlength="100" autocomplete="off">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Join Room</button>
+            </form>
+            
+            <p class="hint">If the room doesn't exist, it will be created automatically.</p>
+        </div>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chat-screen" class="screen hidden">
+        <div class="chat-container">
+            <!-- Header -->
+            <header class="chat-header">
+                <div class="room-info">
+                    <h2 id="room-name">Room Name</h2>
+                    <span id="room-user-count" class="user-count">0 users online</span>
+                </div>
+                <button id="leave-btn" class="btn btn-danger">Leave Room</button>
+            </header>
+
+            <div class="chat-main">
+                <!-- Online Users Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3>In This Room</h3>
+                        <ul id="room-users-list" class="users-list"></ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>Global Online</h3>
+                        <ul id="global-users-list" class="users-list"></ul>
+                    </div>
+                </aside>
+
+                <!-- Messages Area -->
+                <main class="messages-container">
+                    <div id="messages" class="messages"></div>
+                    
+                    <!-- Message Input -->
+                    <form id="message-form" class="message-form">
+                        <input type="text" id="message-input" 
+                               placeholder="Type your message..." 
+                               autocomplete="off" maxlength="1000">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="toast hidden">
+        <span id="error-message"></span>
+        <button onclick="hideError()" class="toast-close">&times;</button>
+    </div>
+
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
