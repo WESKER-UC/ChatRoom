@@ -304,12 +304,12 @@ def handle_join(data):
     is_reconnecting = pending_key in pending_disconnects
     
     # Check for duplicate username in room (different user, not reconnecting self)
-    if room in room_users and username in room_users[room] and not is_reconnecting:
+    #if room in room_users and username in room_users[room] and not is_reconnecting:
         # Check if it's actually a different active session
-        for sid, info in online_users.items():
-            if info['username'] == username and info['room'] == room and sid != request.sid:
-                emit('error', {'message': f'Username "{username}" is already taken in this room'})
-                return
+        #for sid, info in online_users.items():
+            #if info['username'] == username and info['room'] == room and sid != request.sid:
+                #emit('error', {'message': f'Username "{username}" is already taken in this room'})
+               # return
     
     # Determine if we should notify others about join
     # (Don't notify if user is reconnecting within grace period)
@@ -507,4 +507,5 @@ with app.app_context():
 if __name__ == '__main__':
     # Run with eventlet for WebSocket support
     socketio.run(app, host='0.0.0.0', port=5000, allow_unsafe_werkzeug=True)
+
 
